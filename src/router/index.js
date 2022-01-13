@@ -21,6 +21,24 @@ const routes = [
     name: 'Profile',
     
     component: () => import(/* webpackChunkName: "profile" */ '../components/Profile.vue')
+  },
+  {
+    path: '/addpost',
+    name: 'Add Post',
+    
+    component: () => import(/* webpackChunkName: "addpost" */ '../components/AddPost.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    
+    component: () => import(/* webpackChunkName: "addpost" */ '../components/Register.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    
+    component: () => import(/* webpackChunkName: "login" */ '../components/Login.vue')
   }
 ]
 

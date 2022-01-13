@@ -1,12 +1,18 @@
 <template>
   <div>
-    <v-img :src="imageSet[index].image"
+    <div style="550px !important">
+      <l-map style="height: 550px" :zoom="zoom" :center="center">
+<l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+<l-marker v-for="pt in selectedPoints" :key="pt" :lat-lng="pt" ></l-marker>
+</l-map>
+    </div>
+    <!-- <v-img height="500px" :src="imageSet[index].image"
       ><h1
         class="text-h4"
         style="color: white !important; position: absolute; bottom: 50%"
         v-text="imageSet[index].title"
       ></h1
-    ></v-img>
+    ></v-img> -->
     <v-slide-group>
       <v-slide-item v-for="(n, i) in imageSet" :key="n.id">
         <div
@@ -18,7 +24,7 @@
           class="ma-1"
           @click="toggle(i)"
         >
-          <v-card :elevation="2" :width="250" :height="250 ? 250 - 50 : ''">
+          <v-card :elevation="2" :width="150" :height="150 ? 150 - 50 : ''">
             <v-img
               :src="n.image"
               class="white--text"
@@ -27,47 +33,66 @@
               :height="250 ? 250 - 50 : ''"
             >
               <v-card-title
-                class="text-h4"
+                class="text-h5"
                 style="
                   color: white !important;
-                  margin: 110% 0px 0px -100% !important;
+                  font-size:15px;
+                  margin: 80% 0px 0px -100% !important;font-weight: 600;
                 "
                 v-text="n.title.length > 21 ? n.title.slice(0, 21) : n.title"
               ></v-card-title>
             </v-img>
           </v-card>
-          <!-- <v-img height="300px" width="300px" :src="n.image">{{n.title}}</v-img> -->
+          
         </div>
       </v-slide-item>
     </v-slide-group>
     <v-container fluid>
       <h1>Recent Posts</h1>
-      <v-card class="mx-auto" max-width="400">
+     <v-card style="margin-top:3%" max-width="400">
         <v-img
           class="white--text align-end"
           height="200px"
           src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
         >
-          <v-card-title>Top 10 Australian beaches</v-card-title>
+          <v-card-title style="color: white !important; position: absolute;font-weight: 900; bottom: 5%;left:0px">Top 10 Australian beaches</v-card-title>
         </v-img>
 
-        <v-card-subtitle class="pb-0"> Number 10 </v-card-subtitle>
+        <v-card-subtitle class="pb-0" style="font-weight: 900;"> Number 10, 2021 </v-card-subtitle>
 
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-
-          <div>Whitsunday Island, Whitsunday Islands</div>
+        <v-card-text style="font-weight: 900;" class="text--primary">
+         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, at? Velit consequatur architecto libero quibusdam est! Earum, quae? Aspernatur placeat numquam voluptatibus, eius aliquid hic provident. Ipsum provident itaque perspiciatis.
         </v-card-text>
 
         <v-card-actions>
-          <v-btn color="orange" tile> Donate </v-btn>
+          
+         <v-row align="center">
+           <v-col cols="4">
+             
+           </v-col>
+           <v-col cols="8">
+              <router-link style="text-decoration:none" to="/detail">
+                <v-btn style="font-weight: 900; background-color:green !important; color:white;" tile> Donate </v-btn>
+              </router-link>
+           </v-col>
+         </v-row>
         </v-card-actions>
       </v-card>
     </v-container>
     <v-container>
-      <h1>Contact Us</h1>
-      <v-row>
-        <v-col lg="6" md="6" sm="12">
+     
+      <v-row style="margin-bottom:5%;margin-top:5%">
+        <v-col cols="4">
+           <h1 style="margin-left:30%">
+             Contact Us</h1>
+             <v-img contain src="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png">
+
+             </v-img>
+             
+        </v-col>
+         <v-col cols="8">
+           <v-row>
+              <v-col cols="12">
           <v-flex>
             <v-text-field
               type="text"
@@ -79,11 +104,23 @@
             ></v-text-field>
           </v-flex>
         </v-col>
-        <v-col lg="6" md="6" sm="12">
+        <v-col cols="12">
           <v-flex>
             <v-text-field
               type="email"
               label="Email"
+              autocomplete="off"
+              outlined
+              dense
+              color="#4DBA87"
+            ></v-text-field>
+          </v-flex>
+        </v-col>
+          <v-col cols="12">
+          <v-flex>
+            <v-text-field
+              type="text"
+              label="Subject"
               autocomplete="off"
               outlined
               dense
@@ -104,22 +141,41 @@
             ></v-textarea>
           </v-flex>
         </v-col>
-        <v-row justify="end">
-          <v-col>
-            <v-btn class="ma-2" outlined color="green"> Submit </v-btn>
-          </v-col>
-        </v-row>
+        <v-row align="center">
+           <v-col cols="10">
+             
+           </v-col>
+           <v-col cols="2">
+              <v-btn style="font-weight: 900; background-color:green !important; color:white;" tile> Submit </v-btn>
+           </v-col>
+         </v-row>
+           </v-row>
+         </v-col>
+        
       </v-row>
     </v-container>
   </div>
+  
 </template>
 
 <script>
+import {LMap, LTileLayer,} from 'vue2-leaflet';
 export default {
   name: "Landing",
+  components: {
+    LMap,
+    LTileLayer,
+    
+  },
   data() {
     return {
       index: 0,
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution:
+        '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      zoom: 3,
+      center: [47.313220, -1.319482],
+      selectedPoints: [[47.313220, -1.319482], [43.313220, -3.419482]],
       imageSet: [
         {
           image:
