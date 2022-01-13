@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="white" app style="background-color:green;" height="75px" >
-      <h2 style="color:white !important">GIS</h2>
+      <router-link to="/" style="text-decoration:none"><h2 style="color:white !important">Home</h2></router-link>
     
     <v-spacer></v-spacer>
 
@@ -16,11 +16,11 @@
       transition="scale-transition"
     > -->
     <!-- <template > -->
-      <v-btn  icon large>
-        <v-avatar size="42px">
-          <img  src="https://images-na.ssl-images-amazon.com/images/S/amazon-avatars-global/default._CR0,0,1024,1024_SX48_.png" />
+      <router-link style="text-decoration:none" to="/profile"><v-btn  icon large>
+        <v-avatar style="background-color:black" size="42px">
+           <span  style="color:white"><h2>A</h2></span>
         </v-avatar>
-      </v-btn>
+      </v-btn></router-link>
       <!-- </template> -->
       
     <!-- </v-menu> -->
