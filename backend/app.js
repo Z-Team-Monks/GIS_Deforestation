@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 
 // importing routes
 const authRoute = require("./routes/authRoute");
-const uploadRoute = require("./routes/uploadRoute");
+// const uploadRoute = require("./routes/uploadRoute");
 const forestsRoute = require("./routes/forestsRoute");
 const protectRoute =
   require("./routeControllers/authentication/auth").protectRoute;
@@ -67,7 +67,7 @@ app.use("/api/v1/users", protectRoute, usersRoute);
 app.use("/api/v1/discussion", discussionsRoute);
 app.use("/api/v1/donation", donationsRoute);
 app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/upload", uploadRoute);
+// app.use("/api/v1/upload", uploadRoute);
 app.all("*", (req, resp, next) => {
   next(new AppError(`couldn't find ${req.originalUrl} page`, 404));
 });
