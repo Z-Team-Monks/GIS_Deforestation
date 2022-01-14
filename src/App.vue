@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar style="z-index:1000000" />
     <router-view/>
     <Footer />
   </div>

@@ -1,9 +1,24 @@
 <template>
   <div>
-    <div style="550px !important">
+    <div style="margin-top: 5%;550px !important">
       <l-map style="height: 550px" :zoom="zoom" :center="center">
+        <h1 v-if="index != -1">{{imageSet[index].title}}</h1>
 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-<l-marker v-for="pt in selectedPoints" :key="pt" :lat-lng="pt" ></l-marker>
+<div v-if="index == -1">
+  <l-marker v-for="(pt, index) in markerLatLng" :key="index" :lat-lng="pt"><l-icon
+          :icon-size="dynamicSize"
+          :icon-anchor="dynamicAnchor"
+          icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
+        /></l-marker>
+</div>
+<div  v-else>
+  <l-marker :lat-lng="imageSet[index].location"><l-icon
+          :icon-size="dynamicSize"
+          :icon-anchor="dynamicAnchor"
+          icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
+        /></l-marker>
+</div>
+
 </l-map>
     </div>
     <!-- <v-img height="500px" :src="imageSet[index].image"
@@ -159,70 +174,91 @@
 </template>
 
 <script>
-import {LMap, LTileLayer,} from 'vue2-leaflet';
+import {LMap, LTileLayer,LIcon, LMarker} from 'vue2-leaflet';
 export default {
   name: "Landing",
   components: {
     LMap,
     LTileLayer,
+    LIcon,
+    LMarker
     
+  },
+  computed:{
+    points(){
+      return this.markerLatLng
+    }
   },
   data() {
     return {
-      index: 0,
+      index: -1,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      zoom: 3,
+      zoom: 8,
       center: [47.313220, -1.319482],
-      selectedPoints: [[47.313220, -1.319482], [43.313220, -3.419482]],
+      markerLatLng:[[47.2263299, -1.6222], [43.21024000000001, -1.6270065], [47.1969447, -7.6136169], [40.18527929999999, -1.6143036], [47.1794457, -1.6098404], [47.1775788, -1.5985107], [47.1676598, -1.5753365], [47.1593731, -1.5521622], [47.1593731, -1.5319061], [47.1722111, -1.5143967], [47.1960115, -1.4841843], [47.2095404, -1.4848709], [47.2291277, -1.4683914], [47.2533687, -1.5116501], [47.2577961, -1.5531921], [47.26828069, -1.5621185], [47.2657179, -1.589241], [47.2589612, -1.6204834], [47.237287, -1.6266632], [47.2263299, -1.6222]],
+      polygon: {
+        latlngs: [[47.2263299, -1.6222], [47.21024000000001, -1.6270065], [47.1969447, -1.6136169], [47.18527929999999, -1.6143036], [47.1794457, -1.6098404], [47.1775788, -1.5985107], [47.1676598, -1.5753365], [47.1593731, -1.5521622], [47.1593731, -1.5319061], [47.1722111, -1.5143967], [47.1960115, -1.4841843], [47.2095404, -1.4848709], [47.2291277, -1.4683914], [47.2533687, -1.5116501], [47.2577961, -1.5531921], [47.26828069, -1.5621185], [47.2657179, -1.589241], [47.2589612, -1.6204834], [47.237287, -1.6266632], [47.2263299, -1.6222]],
+        color: 'red'
+      },
       imageSet: [
         {
           image:
             "https://media.istockphoto.com/photos/fresh-green-soy-plants-on-the-field-in-spring-rows-of-young-soybean-picture-id1303980089",
           title: "Rash Dashion1",
+          location: [47.313220, -1.319482]
         },
         {
           image:
             "https://images.unsplash.com/photo-1591213595166-82c13a93b1c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
           title: "Rash Dashion2",
+          location: [43.21024000000001, -1.6270065]
         },
         {
           image:
             "https://images.unsplash.com/photo-1593069567131-53a0614dde1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
           title: "Rash Dashion3",
+          location: [47.18527929999999, -1.6143036]
         },
         {
           image:
             "https://images.unsplash.com/photo-1591213595166-82c13a93b1c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
           title: "Rash Dashion4",
+          location: [47.1794457, -1.6098404]
         },
         {
           image:
             "https://media.istockphoto.com/photos/fresh-green-soy-plants-on-the-field-in-spring-rows-of-young-soybean-picture-id1303980089",
           title: "Rash Dashion5",
+          location: [47.1676598, -1.5753365]
         },
         {
           image:
             "https://images.unsplash.com/photo-1591213595166-82c13a93b1c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
           title: "Rash Dashion6",
+          location:  [47.1593731, -1.5319061]
         },
         {
           image:
             "https://images.unsplash.com/photo-1593069567131-53a0614dde1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80",
           title: "Rash Dashion7",
+          location: [47.2095404, -1.4848709]
         },
         {
           image:
             "https://images.unsplash.com/photo-1591213595166-82c13a93b1c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
           title: "Rash Dashion8",
+          location: [47.2263299, -1.6222]
         },
       ],
     };
   },
   methods: {
     toggle(n) {
+      this.zoom = 10
       this.index = n;
+      this.center = this.imageSet[this.index].location
       console.log(this.imageSet[this.index].title);
     },
   },
