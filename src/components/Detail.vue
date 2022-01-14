@@ -2,19 +2,16 @@
   <div>
     <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"> </v-img>
     <v-container style="margin-top:3%">
-      <v-row>
+      <v-row v-for="(info, index) in infor" :key="index">
         <v-col cols="10"
           ><h1>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit
+            {{info.name}}
           </h1></v-col
         >
-        <v-col cols="2"><h3>Votes: 20</h3></v-col>
+        <v-col cols="2"><h3>{{info.votes}}</h3></v-col>
         <v-divider></v-divider>
         <v-col cols="12"
-          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda
-          totam ex iusto? Delectus consectetur, soluta placeat minima eligendi
-          reiciendis adipisci quisquam porro nesciunt numquam provident culpa
-          eos quis. Modi, voluptatum!</v-col
+          >{{info.description}}</v-col
         >
       </v-row>
       <v-divider style="margin-top: 3%"></v-divider>
@@ -100,7 +97,7 @@
         <v-row style="margin-left:5%;" class="ml-5">
           <v-col>
            <p >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
             facere aliquid accusantium. Laudantium consectetur esse officia
             quaerat voluptatibus. Ipsum minima sunt, a non doloribus nesciunt
             cupiditate aut animi ducimus quod?
@@ -113,10 +110,12 @@
 </template>
 
 <script>
+import {getAllAreas} from '../store/index'
 export default {
   data() {
     return {
       com: "",
+      infor: '',
       items: [
       { text: 'Found Raised', },
       { text: 'Deforestation Rate',},
@@ -125,7 +124,15 @@ export default {
     ],
     };
   },
+  created(){
+    this.get()
+  },
   methods: {
+     async get(){
+    let data = await getAllAreas()
+    this.infor = data.message.data
+    console.log(data.message.data)
+    },
     addCom() {
       console.log("coment");
     },

@@ -2,17 +2,18 @@
   <div>
     <div style="margin-top: 5%;550px !important">
       <l-map style="height: 550px" :zoom="zoom" :center="center">
-        <h1 v-if="index != -1">{{imageSet[index].title}}</h1>
 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 <div v-if="index == -1">
-  <l-marker v-for="(pt, index) in markerLatLng" :key="index" :lat-lng="pt"><l-icon
+
+    <l-marker v-for="(pt, index) in marker2" :key="index"  :lat-lng="pt"><l-icon
           :icon-size="dynamicSize"
           :icon-anchor="dynamicAnchor"
           icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
         /></l-marker>
+  
 </div>
 <div  v-else>
-  <l-marker :lat-lng="imageSet[index].location"><l-icon
+  <l-marker :lat-lng="infor[index].location.coordinates"><l-icon
           :icon-size="dynamicSize"
           :icon-anchor="dynamicAnchor"
           icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
@@ -29,7 +30,7 @@
       ></h1
     ></v-img> -->
     <v-slide-group>
-      <v-slide-item v-for="(n, i) in imageSet" :key="n.id">
+      <v-slide-item v-for="(n, i) in infor" :key="i">
         <div
           :style="
             index == i
@@ -39,24 +40,34 @@
           class="ma-1"
           @click="toggle(i)"
         >
-          <v-card :elevation="2" :width="150" :height="150 ? 150 - 50 : ''">
-            <v-img
+          <v-card :elevation="2" style="background-color: black" :width="200" :height="150 ? 150 - 50 : ''">
+            <!-- <v-img
               :src="n.image"
               class="white--text"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
               :width="250"
               :height="250 ? 250 - 50 : ''"
-            >
+            > -->
+            <l-map style="height: 150px; width: 200px" :zoom="3" :center="center">
+<l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+
+
+  <l-marker :lat-lng="n.location.coordinates"><l-icon
+          :icon-size="dynamicSize"
+          :icon-anchor="dynamicAnchor"
+          icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
+        /></l-marker>
+
               <v-card-title
                 class="text-h5"
                 style="
                   color: white !important;
                   font-size:15px;
-                  margin: 80% 0px 0px -100% !important;font-weight: 600;
+                  ;font-weight: 600;
                 "
-                v-text="n.title.length > 21 ? n.title.slice(0, 21) : n.title"
+                v-text="n.name.length > 21 ? n.name.slice(0, 21) : n.name"
               ></v-card-title>
-            </v-img>
+            </l-map>
           </v-card>
           
         </div>
@@ -64,19 +75,21 @@
     </v-slide-group>
     <v-container fluid>
       <h1>Recent Posts</h1>
-     <v-card style="margin-top:3%" max-width="400">
+      <v-slide-group>
+      <v-slide-item v-for="(info, index) in infor" :key="index">
+        <v-card style="margin:1%;" max-width="400">
         <v-img
           class="white--text align-end"
           height="200px"
           src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
         >
-          <v-card-title style="color: white !important; position: absolute;font-weight: 900; bottom: 5%;left:0px">Top 10 Australian beaches</v-card-title>
+          <v-card-title style="color: white !important; position: absolute;font-weight: 900; bottom: 5%;left:0px">{{info.name}}</v-card-title>
         </v-img>
 
-        <v-card-subtitle class="pb-0" style="font-weight: 900;"> Number 10, 2021 </v-card-subtitle>
+        <v-card-subtitle class="pb-0" style="font-weight: 900;">Votes: {{info.votes}}</v-card-subtitle>
 
         <v-card-text style="font-weight: 900;" class="text--primary">
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, at? Velit consequatur architecto libero quibusdam est! Earum, quae? Aspernatur placeat numquam voluptatibus, eius aliquid hic provident. Ipsum provident itaque perspiciatis.
+        {{info.description}}
         </v-card-text>
 
         <v-card-actions>
@@ -93,6 +106,9 @@
          </v-row>
         </v-card-actions>
       </v-card>
+      </v-slide-item>
+    </v-slide-group>
+     
     </v-container>
     <v-container>
      
@@ -175,6 +191,7 @@
 
 <script>
 import {LMap, LTileLayer,LIcon, LMarker} from 'vue2-leaflet';
+import {getAllAreas} from '../store/index'
 export default {
   name: "Landing",
   components: {
@@ -191,12 +208,14 @@ export default {
   },
   data() {
     return {
+      infor: [],
       index: -1,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      zoom: 8,
-      center: [47.313220, -1.319482],
+      zoom: 6,
+      center: [8.971303829777483,38.75349998474122],
+      marker2: [],
       markerLatLng:[[47.2263299, -1.6222], [43.21024000000001, -1.6270065], [47.1969447, -7.6136169], [40.18527929999999, -1.6143036], [47.1794457, -1.6098404], [47.1775788, -1.5985107], [47.1676598, -1.5753365], [47.1593731, -1.5521622], [47.1593731, -1.5319061], [47.1722111, -1.5143967], [47.1960115, -1.4841843], [47.2095404, -1.4848709], [47.2291277, -1.4683914], [47.2533687, -1.5116501], [47.2577961, -1.5531921], [47.26828069, -1.5621185], [47.2657179, -1.589241], [47.2589612, -1.6204834], [47.237287, -1.6266632], [47.2263299, -1.6222]],
       polygon: {
         latlngs: [[47.2263299, -1.6222], [47.21024000000001, -1.6270065], [47.1969447, -1.6136169], [47.18527929999999, -1.6143036], [47.1794457, -1.6098404], [47.1775788, -1.5985107], [47.1676598, -1.5753365], [47.1593731, -1.5521622], [47.1593731, -1.5319061], [47.1722111, -1.5143967], [47.1960115, -1.4841843], [47.2095404, -1.4848709], [47.2291277, -1.4683914], [47.2533687, -1.5116501], [47.2577961, -1.5531921], [47.26828069, -1.5621185], [47.2657179, -1.589241], [47.2589612, -1.6204834], [47.237287, -1.6266632], [47.2263299, -1.6222]],
@@ -255,13 +274,30 @@ export default {
     };
   },
   methods: {
+     async get(){
+    let data = await getAllAreas()
+    for(let i = 0; i<= data.message.data.length; i++){
+      if(data.message.data[i] != undefined){
+        this.marker2.push(data.message.data[i].location.coordinates)
+      }
+    }
+    this.infor = data.message.data
+    console.log(this.center)
+    console.log(JSON.stringify(data.message.data[0].location.coordinates))
+    },
     toggle(n) {
-      this.zoom = 10
       this.index = n;
-      this.center = this.imageSet[this.index].location
-      console.log(this.imageSet[this.index].title);
+      this.zoom = 10
+      this.center = this.infor[this.index].location.coordinates
+      console.log(this.infor[this.index].location);
     },
   },
+  created(){
+    this.get()
+    
+
+  },
+ 
 };
 </script>
 
