@@ -9,10 +9,12 @@
                     <v-col cols="10">
                         <v-flex>
                   <v-text-field style="font-weight:600"
-                    id="username"
-                    name="username"
-                    label="User Name"
+                    id="email"
+                    type="email"
+                    name="email"
+                    label="Email"
                     autocomplete="off"
+                    v-model="email"
                     outlined
                     dense
                     color="#4DBA87"
@@ -27,6 +29,7 @@
                     name="password"
                     type="password"
                     label="Password"
+                    v-model="password"
                     autocomplete="off"
                     outlined
                     dense
@@ -47,7 +50,7 @@
               background-color: green !important;
               color: white;
             "
-          
+            @click="userLogin"
             tile
           >
             Login
@@ -59,15 +62,33 @@
 </template>
 
 <script>
+import {userlogin} from '../store/index'
 export default {
     data() {
     return {
+      email: '',
+      password:'',
       dialog: true,
       placeImage: null,
       url: null,
     };
   },
   methods: {
+    userLogin() {
+        
+          const payload = {
+              
+              email: this.email,
+              password: this.password
+          }
+           userlogin(payload)
+          this.clearForm();
+      },
+      clearForm() {
+          
+          this.email = "";
+          this.password = "";
+      },
     ImagePriview() {
       this.url = URL.createObjectURL(this.placeImage);
     },

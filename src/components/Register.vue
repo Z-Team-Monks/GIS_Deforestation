@@ -11,6 +11,7 @@
                   <v-text-field style="font-weight:600"
                     id="username"
                     name="username"
+                    v-model="username"
                     label="User Name"
                     autocomplete="off"
                     outlined
@@ -26,6 +27,7 @@
                     id="email"
                     name="email"
                     type="email"
+                    v-model="email"
                     label="Email"
                     autocomplete="off"
                     outlined
@@ -41,6 +43,7 @@
                     name="password"
                     type="password"
                     label="Password"
+                    v-model="password"
                     autocomplete="off"
                     outlined
                     dense
@@ -60,7 +63,10 @@
               margin-left:1%;
               background-color: green !important;
               color: white;
-            "
+            " 
+            @click='addUser()'
+            :loading="loading"
+        :disabled="loading"
           
             tile
           >
@@ -73,15 +79,36 @@
 </template>
 
 <script>
+import {createUser} from '../store/index'
 export default {
     data() {
     return {
+      loader: null,
+      loading: false,
       dialog: true,
       placeImage: null,
       url: null,
+      username: '',
+      email: '',
+      password:''
     };
   },
   methods: {
+    addUser() {
+          console.log(this.username)
+          const payload = {
+              name: this.username,
+              email: this.email,
+              password: this.password
+          }
+           createUser(payload)
+          this.clearForm();
+      },
+      clearForm() {
+          this.username = "";
+          this.email = "";
+          this.password = "";
+      },
     ImagePriview() {
       this.url = URL.createObjectURL(this.placeImage);
     },

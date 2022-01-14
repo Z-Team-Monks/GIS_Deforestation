@@ -11,16 +11,13 @@
         <v-row>
         <v-col cols="10"
           ><h1>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit
+voluptatem dolorum a excepturi ates corporis, itaque modi ullam, alias, qui voluptas sint illum molestiae enim.
           </h1></v-col
         >
-        <v-col cols="2"><h3>Votes: 20</h3></v-col>
+        <v-col cols="2"><h3>votes: 30</h3></v-col>
         <v-divider></v-divider>
         <v-col cols="12"
-          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda
-          totam ex iusto? Delectus consectetur, soluta placeat minima eligendi
-          reiciendis adipisci quisquam porro nesciunt numquam provident culpa
-          eos quis. Modi, voluptatum!</v-col
+          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio nulla quidem et laborum molestias quo veritatis error sint cum voluptatibus perferendis delectus, ipsum cupiditate numquam soluta earum dolore! Nostrum, harum.</v-col
         >
       </v-row>
       <v-col cols="12"> 
