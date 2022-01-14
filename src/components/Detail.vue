@@ -11,13 +11,16 @@
         <v-row>
         <v-col cols="10"
           ><h1>
-voluptatem dolorum a excepturi ates corporis, itaque modi ullam, alias, qui voluptas sint illum molestiae enim.
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit
           </h1></v-col
         >
-        <v-col cols="2"><h3>votes: 30</h3></v-col>
+        <v-col cols="2"><h3>Votes: 20</h3></v-col>
         <v-divider></v-divider>
         <v-col cols="12"
-          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio nulla quidem et laborum molestias quo veritatis error sint cum voluptatibus perferendis delectus, ipsum cupiditate numquam soluta earum dolore! Nostrum, harum.</v-col
+          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda
+          totam ex iusto? Delectus consectetur, soluta placeat minima eligendi
+          reiciendis adipisci quisquam porro nesciunt numquam provident culpa
+          eos quis. Modi, voluptatum!</v-col
         >
       </v-row>
       <v-col cols="12"> 
@@ -50,28 +53,31 @@ voluptatem dolorum a excepturi ates corporis, itaque modi ullam, alias, qui volu
       </v-col>
     </v-row>
     <v-container>
-      <v-divider></v-divider>
-        <v-row style="margin-top: 3%">
-          <v-col cols="5" align-self="end">
-            <v-textarea
-              solo
-              v-model="com"
-              class="ma-0"
-              name="input-7-4"
-              label="Write a Comment"
-            ></v-textarea>
-            <v-row align="end" justify="end"> 
-              <v-col cols="3"> 
-              <v-btn block
-                style="color: black !important; font-weight:900"
-              >
-                Submit
-              </v-btn>
-            </v-col>
-            </v-row>
-            
+      
+      <v-divider style="margin-top: 3%"></v-divider>
+        
+      
+      <v-row style="margin-top: 3%">
+        <v-col cols="5" align-self="end">
+          <v-textarea
+            solo
+            v-model="com"
+            class="ma-0"
+            name="input-7-4"
+            label="Write a Comment"
+          ></v-textarea>
+          <v-row align="end" justify="end"> 
+            <v-col cols="3"> 
+            <v-btn block
+              style="color: black !important; font-weight:900"
+            >
+              Submit
+            </v-btn>
           </v-col>
-        </v-row>
+          </v-row>
+          
+        </v-col>
+      </v-row>
       <v-container> 
         <Comment />
       </v-container>
@@ -126,8 +132,26 @@ export default {
     };
   },
 
+  
 }
-
+// export default {
+//   data() {
+//     return {
+//       com: "",
+//       items: [
+//       { text: 'Found Raised', },
+//       { text: 'Deforestation Rate',},
+//       { text: 'Forest Coverage',},
+//       { text: 'Region', },
+//     ],
+//     };
+//   },
+//   methods: {
+//     addCom() {
+//       console.log("coment");
+//     },
+//   },
+// };
 </script>
 <style scoped>
   :root {
