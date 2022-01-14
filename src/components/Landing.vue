@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-top: 5%;550px !important">
-      <l-map style="height: 550px" :zoom="zoom" :center="center">
+      <l-map style="height: 550px" :zoom="zoom" :center="center" :animate="true">
         <h1 v-if="index != -1">{{imageSet[index].title}}</h1>
 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
 <div v-if="index == -1">

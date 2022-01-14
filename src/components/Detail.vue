@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <v-container>
     <v-container style="margin-top:3.5%">
       <l-map style="height: 450px" :zoom="zoom" :center="center">
       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
       <l-polygon :lat-lngs="polygon.latlngs" :color="polygon.color"></l-polygon>
       </l-map>
     </v-container>
-    <v-container style="margin-top:3%">
-      <v-row>
+    <v-row style="margin:3.5%"> 
+      <v-col cols="8"> 
+        <v-row>
         <v-col cols="10"
           ><h1>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit
@@ -22,111 +23,78 @@
           eos quis. Modi, voluptatum!</v-col
         >
       </v-row>
-      <v-divider style="margin-top: 3%"></v-divider>
-      <!-- <v-row style="margin-top: 3%">
-        <v-col cols="4"><h2>Status</h2>
-        <v-list-item style="margin-left: -5%; !important"
-              v-for="(item, i) in items"
-              :key="i"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-checkbox-marked-circle-outline</v-icon> 
-              </v-list-item-icon>
-  
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-        </v-col>
-        <v-col cols="4" ><h2>Plantation</h2>
-         <v-list-item style="margin-left: -5%; !important"
-              v-for="(item, i) in items"
-              :key="i"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-checkbox-marked-circle-outline</v-icon> 
-              </v-list-item-icon>
-  
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item></v-col>
-        <v-col cols="4"><h2>Wild Life</h2>
-         <v-list-item style="margin-left: -5%; !important"
-              v-for="(item, i) in items"
-              :key="i"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-checkbox-marked-circle-outline</v-icon> 
-              </v-list-item-icon>
-  
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item></v-col>
-      </v-row> -->
-      
+      <v-col cols="12"> 
         <div class="row1-container">
-          <v-card class="box box-down cyan">
-            <h2>Status</h2>
-            <p>Monitors activity to identify project roadblocks</p>
-          </v-card>
+            <v-card class="box box-down cyan">
+              <h2>Status</h2>
+              <p>Monitors activity to identify project roadblocks</p>
+            </v-card>
 
-          <v-card class="box red">
-            <h2>Plantation</h2>
-            <p>Scans our talent network to create the optimal team for your project</p>
-          </v-card>
+            <v-card class="box red">
+              <h2>Plantation</h2>
+              <p>Scans our talent network to create the optimal team for your project</p>
+            </v-card>
 
-          <v-card class="box box-down blue">
-            <h2>Calculator</h2>
-            <p>Uses data from past projects to provide better delivery estimates</p>
-          </v-card>
-        </div>
-        <div class="row2-container">
-          <v-card class="box orange">
-            <h2>Wild Life</h2>
-            <p>Regularly evaluates our talent to ensure quality</p>
-          </v-card>
-        </div>
-      
-      <v-row style="margin-top: 3%">
-        <v-col cols="5" align-self="end">
-          <v-textarea
-            solo
-            v-model="com"
-            class="ma-0"
-            name="input-7-4"
-            label="Write a Comment"
-          ></v-textarea>
-          <v-row align="end" justify="end"> 
-            <v-col cols="3"> 
-            <v-btn block
-              style="color: black !important; font-weight:900"
-            >
-              Submit
-            </v-btn>
+            <v-card class="box box-down blue">
+              <h2>Calculator</h2>
+              <p>Uses data from past projects to provide better delivery estimates</p>
+            </v-card>
+          </div>
+          <div class="row2-container">
+            <v-card class="box orange">
+              <h2>Wild Life</h2>
+              <p>Regularly evaluates our talent to ensure quality</p>
+            </v-card>
+          </div>
+      </v-col>
+      </v-col>
+      <v-col cols="3">
+        <Donate />
+      </v-col>
+    </v-row>
+    <v-container>
+      <v-divider></v-divider>
+        <v-row style="margin-top: 3%">
+          <v-col cols="5" align-self="end">
+            <v-textarea
+              solo
+              v-model="com"
+              class="ma-0"
+              name="input-7-4"
+              label="Write a Comment"
+            ></v-textarea>
+            <v-row align="end" justify="end"> 
+              <v-col cols="3"> 
+              <v-btn block
+                style="color: black !important; font-weight:900"
+              >
+                Submit
+              </v-btn>
+            </v-col>
+            </v-row>
+            
           </v-col>
-          </v-row>
-          
-        </v-col>
-      </v-row>
+        </v-row>
       <v-container> 
         <Comment />
       </v-container>
     </v-container>
-  </div>
+    
+  </v-container>
 </template>
 
 <script>
 import {LMap, LTileLayer, LPolygon} from 'vue2-leaflet';
 import Comment from './Comment';
+import Donate from './Donate';
 
 export default {
   components: {
     LMap,
     LTileLayer,
     LPolygon,
-    Comment
+    Comment,
+    Donate
   },
   data () {
     const getCenter = (latlngs) => {
@@ -161,26 +129,8 @@ export default {
     };
   },
 
-  
 }
-// export default {
-//   data() {
-//     return {
-//       com: "",
-//       items: [
-//       { text: 'Found Raised', },
-//       { text: 'Deforestation Rate',},
-//       { text: 'Forest Coverage',},
-//       { text: 'Region', },
-//     ],
-//     };
-//   },
-//   methods: {
-//     addCom() {
-//       console.log("coment");
-//     },
-//   },
-// };
+
 </script>
 <style scoped>
   :root {

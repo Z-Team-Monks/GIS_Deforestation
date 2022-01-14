@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="white" app style="background-color:#50CB93;" height="75px" >
+  <v-app-bar color="white" app style="background-color:#6ab43e;" height="75px" >
       <router-link to="/" style="text-decoration:none"><h2 style="color:white !important">Home</h2></router-link>
     
     <v-spacer></v-spacer>
