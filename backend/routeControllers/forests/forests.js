@@ -21,7 +21,7 @@ exports.getByRegion = catchAsyncErrors(async (req, res, next) => {
   const forestCategory = await Forest.aggregate([
     {
       $group: {
-        _id: { $toUpper: "$region" },
+        _id: "$region",
         itemCount: { $sum: 1 },
         forests: {
           $push: {
