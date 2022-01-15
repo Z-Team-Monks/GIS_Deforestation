@@ -13,6 +13,29 @@ export async function getAllAreas() {
     
 }
 
+export async function searchAreas({ lat, lon, nearby, name, region }) {
+    if (!lat || !lon) return;
+    let baseSearch = `lat=${lat}&lon=${lon}&nearby=${
+      nearby ? Number(nearby) : 9000
+    }`;
+  
+    if (name && String(name).length > 0) {
+      baseSearch += `&name=${name}`;
+    }
+    if (region && String(region).length > 0) {
+      baseSearch += `&region=${region}`;
+    }
+    console.log("Search url: ", baseSearch);
+    const response = await fetch(`http://localhost:4000/api/v1/areas/search?${baseSearch}`);
+    console.log(response);
+    return await response.json();
+  }
+  export async function getRegions() {
+    const response = await fetch('http://localhost:4000/api/v1/areas/regional');
+    console.log(response);
+    return await response.json();
+}
+
 export async function logout() {
 
     localStorage.removeItem('user')

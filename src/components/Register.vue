@@ -2,7 +2,7 @@
     <div class="container" style="margin-top:10%">
         <v-card  width="600" style="margin-bottom:10%; margin-left:20%">
           <v-card-title style="font-weight:600"> Register</v-card-title>
-          <v-form @submit.prevent="" lazy-validation ref="form">
+          <v-form  lazy-validation  ref="form">
             <v-card-text>
               <div style="margin-left:20%">
                <v-row>

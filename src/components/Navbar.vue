@@ -3,7 +3,30 @@
     <router-link to="/" style="text-decoration: none"
       ><h2 style="color: white !important">Home</h2></router-link
     >
-
+    <v-spacer></v-spacer>
+ 
+                 <v-text-field
+                solo
+                dense
+                light
+                height="40px"
+                style="margin-top:2% !important"
+                v-model="searchP"
+                placeholder="Search Places..."
+              ></v-text-field>
+             
+              <router-link style="text-decoration: none" :to="`/search?name=${searchP}`">
+                <v-btn
+                
+                color="#4DBA87"
+                dark
+                height="40px"
+                tile
+                class="rounded-r-xl"
+              >
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+              </router-link>
     <v-spacer></v-spacer>
 
     <!-- profile -->
@@ -64,11 +87,9 @@ import { logout } from "../store/index";
 export default {
   data() {
     return {
-      user: JSON.parse(localStorage.getItem("user")),
-      profileItems: [
-        { name: "Profile", link: "/profile" },
-        { name: "Logout", link: "/login" },
-      ],
+      km:0,
+      searchP: '',
+      user: JSON.parse(localStorage.getItem('user'))
     };
   },
   created() {
