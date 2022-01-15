@@ -75,7 +75,8 @@ export async function getForestDetail(id) {
 }
 
 export async function donateMoney(data) {
-    const response = await fetch(`${baseurl}/donation`, {
+    console.log("got here");
+    const response = await fetch(`http://localhost:4000/api/v1/donation`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

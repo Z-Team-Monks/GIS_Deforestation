@@ -21,16 +21,9 @@
           </h4>
         </div>
         <form
+        
           id="give-form-442-1"
           class="give-form give-form-442 give-form-type-multi"
-          data-id="442-1"
-          data-currency_symbol="$"
-          data-currency_code="USD"
-          data-currency_position="before"
-          data-thousands_separator=","
-          data-decimal_separator="."
-          data-number_decimals="0"
-          method="post"
         >
           <div class="give-total-wrap">
             <div class="give-donation-amount form-row-wide">
@@ -128,7 +121,7 @@
               </p>
               <div class="give-submit-button-wrap give-clearfix">
                 <button
-                  @click="donateMoney"
+                  @click="donateMoney_"
                   class="give-submit give-btn"
                   id="give-purchase-button"
                   name="give-purchase"
@@ -145,6 +138,8 @@
 </template>
 
 <script>
+import {donateMoney} from "../store/index";
+
 export default {
     props: ["id", "name", "fundraised"],
     data () {
@@ -155,15 +150,17 @@ export default {
         }
     },
     methods: {
-        donateMoney() {
+        donateMoney_() {
             const payload = {
               amount: this.money,
               forestId: this.forrestId
           }
+          console.log(this.fundraised)
+          console.log(payload)
+        let ret = donateMoney(payload)
 
-        let ret = this.donateMoney(payload)
         if (ret) {
-            this.fundraised += payload.amount
+            this.fundraised = parseInt(this.fundraised) + parseInt(payload.amount)
             this.money = 0
             alert("Transaction Success")
         } else {
