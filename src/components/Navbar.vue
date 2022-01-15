@@ -41,16 +41,16 @@
     <div v-if="user === null">
       <v-row>
         <v-col cols="4"
-          ><router-link style="text-decoration: none" to="/login"
+          ><router-link style="text-decoration: none; color: white !important" to="/login"
             ><v-btn text>
-              <h5>Login</h5>
+              <h5 style="color: white !important">Login</h5>
             </v-btn></router-link
           >
         </v-col>
         <v-col cols="6"
-          ><router-link style="text-decoration: none" to="/register"
+          ><router-link style="text-decoration: none;" to="/register"
             ><v-btn text>
-              <h5>Register</h5>
+              <h5 style="color: white !important">Register</h5>
             </v-btn></router-link
           ></v-col
         >
