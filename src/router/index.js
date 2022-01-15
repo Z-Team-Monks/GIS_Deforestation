@@ -17,6 +17,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "detail" */ '../components/Detail.vue')
   },
   {
+    path: '/search',
+    name: 'Search',
+    
+    component: () => import(/* webpackChunkName: "detail" */ '../components/search.vue')
+  },
+  {
     path: '/profile',
     name: 'Profile',
     

@@ -47,7 +47,7 @@ exports.getByRegion = catchAsyncErrors(async (req, res, next) => {
 exports.searchForAreas = catchAsyncErrors(async (req, res, next) => {
   const { name, region, nearby, lon, lat } = req.query;
 
-  let queryParam = undefined;
+  let queryParam = {};
   if (name) {
     queryParam = { ...queryParam, name };
   }

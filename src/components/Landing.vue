@@ -29,7 +29,8 @@
         v-text="imageSet[index].title"
       ></h1
     ></v-img> -->
-    <v-slide-group>
+    <v-container>
+      <v-slide-group>
       <v-slide-item v-for="(n, i) in infor" :key="i">
         <div
           :style="
@@ -41,33 +42,23 @@
           @click="toggle(i)"
         >
           <v-card :elevation="2" style="background-color: black" :width="200" :height="150 ? 150 - 50 : ''">
-            <!-- <v-img
-              :src="n.image"
+            <v-img
+              :src="imageSet[i].image"
               class="white--text"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              :width="250"
-              :height="250 ? 250 - 50 : ''"
-            > -->
-            <l-map style="height: 150px; width: 200px" :zoom="3" :center="center">
-<l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-
-
-  <l-marker :lat-lng="n.location.coordinates"><l-icon
-          :icon-size="dynamicSize"
-          :icon-anchor="dynamicAnchor"
-          icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
-        /></l-marker>
-
-              <v-card-title
+              :width="200"
+              :height="150 ? 150 - 50 : ''"
+            ><v-card-title
                 class="text-h5"
                 style="
                   color: white !important;
                   font-size:15px;
-                  ;font-weight: 600;
+                  font-weight: 600;
+                  margin: 39% 0px 0px -67%;
                 "
                 v-text="n.name.length > 21 ? n.name.slice(0, 21) : n.name"
-              ></v-card-title>
-            </l-map>
+              ></v-card-title></v-img>
+           
           </v-card>
           
         </div>
@@ -184,6 +175,7 @@
          </v-col>
         
       </v-row>
+    </v-container>
     </v-container>
   </div>
   
