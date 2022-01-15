@@ -63,14 +63,14 @@
         <v-col cols="5" align-self="end">
           <v-textarea
             solo
-            v-model="com"
+            name="review"
+            v-model="review"
             class="ma-0"
-            name="input-7-4"
             label="Write a Comment"
           ></v-textarea>
           <v-row align="end" justify="end">
             <v-col cols="3">
-              <v-btn block style="color: black !important; font-weight: 900">
+              <v-btn block @click="sendComment_" style="color: black !important; font-weight: 900">
                 Submit
               </v-btn>
             </v-col>
@@ -79,8 +79,8 @@
       </v-row>
 
       <v-container v-if="discussion">
-        <div v-bind:v-for="(item, i) in discussion" :key="i">
-          <Comment v-if="item" :content="item.comment" />
+        <div v-for="(item, i) in discussion" :key="i">
+          <Comment v-if="item" :name="item.commentedBy.name" :comment="item.comment" />
         </div>
       </v-container>
     </v-container>
@@ -89,7 +89,7 @@
 
 <script>
 import { LMap, LTileLayer, LPolygon } from "vue2-leaflet";
-import { getForestDetail } from "../store";
+import { getForestDetail, sendComment } from "../store";
 import Comment from "./Comment";
 import Donate from "./Donate";
 
@@ -143,14 +143,15 @@ export default {
     ];
 
     return {
-      forrestId: "61e1639e0db95bb16ea21554",
+      forrestId: this.$route.params.id,
       forrest: {
         name: "",
         description: "",
         wildlife: [],
         plantation: [],
-        discussion: [],
+        discussions: [],
       },
+      review: "",
       plantation: [],
       wildlife: [],
       discussion: [],
@@ -160,6 +161,7 @@ export default {
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       zoom: 11,
       center: getCenter(latlngsList),
+
       polygon: {
         latlngs: latlngsList,
         color: "green",
@@ -167,17 +169,27 @@ export default {
     };
   },
 
+  methods: {
+    sendComment_(){
+      let payload = {
+        comment: this.review,
+        forrestId: this.forrestId
+      }
+
+     let res = sendComment(payload)
+
+      if (res) {
+        window && window.location.reload()
+      }
+    }
+  },
   async mounted() {
-    let response = await getForestDetail("61e1639e0db95bb16ea21554");
+    let response = await getForestDetail(this.forrestId);
     this.forrest = response.message.data;
-    console.log("sssssssssss");
-    console.log(this.forrest);
-    console.log("sssssssssss");
     this.plantation = this.forrest.plantation;
-    this.discussion = this.forrest.discussion;
+    this.discussion = this.forrest.discussions;
     this.wildlife = this.forrest.wildlife;
-    console.log(this.forrest);
-    console.log(this.wildlife);
+    console.log(this.discussion);
   },
 };
 </script>

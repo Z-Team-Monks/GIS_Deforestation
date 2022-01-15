@@ -1,5 +1,6 @@
 <template>
   <v-container style="width: 500px">
+    
     <v-card >
       <div
         id="give-form-442-wrap"
@@ -20,10 +21,10 @@
             how much would you like to donate ?
           </h4>
         </div>
-        <form
-        
+        <v-form
           id="give-form-442-1"
           class="give-form give-form-442 give-form-type-multi"
+          action="javascript:void(0);"
         >
           <div class="give-total-wrap">
             <div class="give-donation-amount form-row-wide">
@@ -131,9 +132,14 @@
               </div>
             </fieldset>
           </div>
-        </form>
+        </v-form>
       </div>
     </v-card>
+    <p v-show="show" >
+      {{
+         success ? "Successfullly Submitted" : "Failed! Try Again"
+      }}
+    </p>
   </v-container>
 </template>
 
@@ -147,6 +153,8 @@ export default {
             money: 0,
             forrestId: this.id,
             title: this.name,
+            success: false,
+            show: false
         }
     },
     methods: {
@@ -162,10 +170,11 @@ export default {
         if (ret) {
             this.fundraised = parseInt(this.fundraised) + parseInt(payload.amount)
             this.money = 0
-            alert("Transaction Success")
+            this.success = true
         } else {
-            alert("Transaction Failed")
+            this.success = false
         }
+        this.show = true
         }
     }
 }

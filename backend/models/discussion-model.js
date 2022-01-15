@@ -27,7 +27,7 @@ const discussionSchema = new mongoose.Schema(
   }
 );
 
-discussionSchema.index({ commentedOn: 1, commentedBy: 1 }, { unique: true });
+discussionSchema.index({ commentedOn: 1, commentedBy: 1 });
 
 discussionSchema.pre(/^find/, function (next) {
   this.populate({

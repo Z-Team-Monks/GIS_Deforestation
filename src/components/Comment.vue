@@ -4,21 +4,28 @@
             <v-col cols="6">
                 <v-row>
                     <v-col cols="1"><v-avatar class="g-width-40 g-height-50 rounded-circle g-mt-3 g-mr-15" style="background-color:#54436B">
-                    <span  style="color:white"><h2>N</h2></span>
+                    <span  style="color:white"><h2>{{name[0]}}</h2></span>
                 </v-avatar></v-col>
                     <v-col cols="11"><div class="media-body u-shadow-v18 g-bg-secondary g-pa-30 display-inline">
                     <div class="g-mb-15">
-                        <h3 class="g-color-gray-dark-v1 mb-3">John Doe</h3>
+                        <h3 class="g-color-gray-dark-v1 mb-3">{{name}}</h3>
                     </div>
 
-                    <p class="pt-3">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
-                        felis in faucibus ras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+                    <p class="pt-3">{{comment}}</p>
                 </div></v-col>
                 </v-row>
             </v-col>
         </v-row>
     </v-container>
 </template>
+
+<script>
+
+export default {
+    props: ['comment', 'name'],
+}
+</script>
+
 
 <style scoped>
     body{

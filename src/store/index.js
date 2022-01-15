@@ -100,11 +100,13 @@ export async function getForestDetail(id) {
 
 export async function donateMoney(data) {
     console.log("got here");
-    const response = await fetch(`http://localhost:4000/api/v1/donation`, {
+
+    console.log("token ", JSON.parse(localStorage.getItem("user")).token)
+    const response = await fetch(`${baseurl}/donation`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearers ' + (localStorage.getItem("token") | "")
+            'Authorization': 'Bearer ' + (JSON.parse(localStorage.getItem("user")).token)
         },
         body: JSON.stringify(data)
       })
@@ -114,4 +116,22 @@ export async function donateMoney(data) {
       }
 
       return false;
+}
+
+export async function sendComment(data) {
+    console.log("alkjfkdj a");
+    const response = await fetch(`${baseurl}/areas/${data.forrestId}/discussions`, {
+      method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + (JSON.parse(localStorage.getItem("user")).token)
+        },
+        body: JSON.stringify(data)
+    }) 
+    console.log(response);
+    if (response.status == 200) {
+      return true;
+  }
+
+  return false;
 }

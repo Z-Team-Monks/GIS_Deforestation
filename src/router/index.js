@@ -11,7 +11,7 @@ const routes = [
     component: Landing
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'Detail',
     
     component: () => import(/* webpackChunkName: "detail" */ '../components/Detail.vue')

@@ -90,8 +90,8 @@
              
            </v-col>
            <v-col cols="8">
-              <router-link style="text-decoration:none" to="/detail">
-                <v-btn style="font-weight: 900; background-color:green !important; color:white;" tile> Donate </v-btn>
+              <router-link style="text-decoration:none" :to="`/detail/${info._id}`">
+                <v-btn style="font-weight: 900; background-color:green !important; color:white;" tile> Show More </v-btn>
               </router-link>
            </v-col>
          </v-row>
