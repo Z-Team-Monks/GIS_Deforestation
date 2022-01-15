@@ -7,7 +7,7 @@
           <div>
                 <l-map style="height: 450px" :zoom="zoom" :center="center">
 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-<l-polygon :lat-lngs="polygon.latlngs" :color="polygon.color"></l-polygon>
+<l-polygon v-for="(poly, index) in polygon" :key="index" :lat-lngs="poly.latlngs" :color="poly.color"></l-polygon>
 </l-map>
           </div>
           <!-- <div
@@ -105,7 +105,31 @@
         </v-col>
         <v-col style="margin-top: 3%" cols="4">
           <v-row>
-            <v-col cols="11">
+             <v-slider
+                      v-model="km"
+                      class="mt-5"
+                      label="Filter Nearby Place"
+                      color="#43DB80"
+                      thumb-color="#43DB80"
+                      tick-labels=""
+                      :min="0"
+                      :max="1000"
+                    ></v-slider>
+                    <p style="font-size:15px;font-weight:600" class="mt-5">
+                      {{ km }} Km
+                    </p>
+                    <v-btn
+                    style="font-size:15px;font-weight:600; margin-left:5%;margin-top:-2%" 
+                @click="filterNearbyPlaces"
+                color="#4DBA87"
+                dark
+                height="40px"
+                tile
+                class="rounded-r-xl"
+              >
+                Go
+              </v-btn>
+            <!-- <v-col cols="11">
               <v-text-field
                 solo
                 dense
@@ -129,9 +153,10 @@
               >
                 <v-icon>mdi-magnify</v-icon>
               </v-btn>
-            </v-col>
+            </v-col> -->
           </v-row>
           <h3>REGIONS</h3>
+          <h4 style="margin-top:2%" v-if="searchParam.region !== null">Selected Region:{{searchParam.region}}</h4>
           <div
             style="padding: 4%"
             v-for="(region, index) in regions"
@@ -175,6 +200,7 @@ export default {
     },
   },
   data() {
+    
     const getCenter = (latlngs) => {
       let totalLat = 0;
       let totalLong = 0;
@@ -196,12 +222,13 @@ export default {
       gettingLocation: false,
       regions: [],
       errorStr: null,
+      km: 0,
       searchParam: {
         lat: 0,
         lon: 0,
-        name: "this.$route.query.name",
+        name: this.$route.query.name,
         region: null,
-        nearby: 15000,
+        nearby: this.km,
       },
       searchResults: [],
       infor: [],
@@ -209,18 +236,31 @@ export default {
        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      zoom: 11,
+      zoom: 5,
       center: getCenter(latlngss),
-      polygon: {
+      polygon: [
+        {
         latlngs: latlngss,
         color: 'green'
-      },
+      }
+      ],
     };
   },
   methods: {
+    filterNearbyPlaces(){
+      this.searchParam.nearby = this.km * 1000
+      this.searchParam.lat = this.location.lat
+      this.searchParam.lon = this.location.lon
+      this.searchForAreas(this.searchParam)
+      console.log(this.searchParam)
+    },
     setSelected(region) {
       console.log(region);
-      //   this.searchParam.region = region
+        this.searchParam.region = region
+        this.searchParam.nearby = this.km * 1000
+         this.searchParam.lat = this.location.lat
+      this.searchParam.lon = this.location.lon
+        this.searchForAreas(this.searchParam)
       console.log(this.searchParam);
     },
     async getLocation() {
@@ -271,7 +311,17 @@ export default {
     async searchForAreas(data) {
       let res = await searchAreas(data);
       this.searchResults = res.data.forests;
-      console.log("asdasdasdasdasd");
+      console.log("New+++++++++++++++++++++++++++++");
+      console.log(this.searchResults);
+      this.polygon = this.searchResults.map((item) =>{
+        return {
+          latlngs: item.polygon.coordinates,
+          color: "green"
+        }
+      })
+      this.center = this.polygon[0].latlngs[0][0]
+      console.log(this.polygon[0].latlngs[0][0])
+      
       console.log(this.searchResults);
       console.log("asdasdasdasdasd");
       // for (let i = 0; i <= res.data.forests.length; i++) {

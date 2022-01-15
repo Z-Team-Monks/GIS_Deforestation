@@ -63,6 +63,17 @@ const forestSchema = mongoose.Schema(
         required: true,
       },
     },
+    polygon: {
+      type: {
+        type: String,
+        enum: ["Polygon"],
+        default: "Polygon"
+      },
+      coordinates: {
+        type: [[[Number]]],
+        required: true,
+      },
+    },
     isPublished: {
       type: Boolean,
       default: false,
