@@ -10,54 +10,53 @@
       <v-col cols="8"> 
         <v-row>
         <v-col cols="10"
-          ><h1>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit
+          >
+          <!--  -->
+          <h1>
+            {{forrest.name}}
           </h1></v-col
         >
-        <v-col cols="2"><h3>Votes: 20</h3></v-col>
+        <!--  -->
+        <v-col cols="2"><h3>Votes: {{forrest.votes}}</h3></v-col>
         <v-divider></v-divider>
+        <!--  -->
         <v-col cols="12"
-          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Assumenda
-          totam ex iusto? Delectus consectetur, soluta placeat minima eligendi
-          reiciendis adipisci quisquam porro nesciunt numquam provident culpa
-          eos quis. Modi, voluptatum!</v-col
+          >{{forrest.description}}
+          </v-col
         >
       </v-row>
-      <v-col cols="12"> 
-        <div class="row1-container">
-            <v-card class="box box-down cyan">
-              <h2>Status</h2>
-              <p>Monitors activity to identify project roadblocks</p>
-            </v-card>
-
-            <v-card class="box red">
+      <v-row justify="center">
+        <v-col cols="5">
+            <v-card v-if="plantation" style="padding: 25px">
               <h2>Plantation</h2>
-              <p>Scans our talent network to create the optimal team for your project</p>
+              <div v-bind:v-for="(item, i) in plantation">
+                <p v-if="item">{{item.plant}}</p>
+                <p v-if="item">{{item.description}}</p>
+              </div>
             </v-card>
-
-            <v-card class="box box-down blue">
-              <h2>Calculator</h2>
-              <p>Uses data from past projects to provide better delivery estimates</p>
-            </v-card>
-          </div>
-          <div class="row2-container">
-            <v-card class="box orange">
+        </v-col>
+        <v-col cols="5">
+            <v-card v-if="wildlife" style="padding: 25px">
               <h2>Wild Life</h2>
-              <p>Regularly evaluates our talent to ensure quality</p>
+              <div  v-bind:v-for="(item, i) in wildlife">
+                <p v-if="item">{{item.animal}}</p>
+                <p v-if="item">{{item.description}}</p>
+              </div>
             </v-card>
-          </div>
-      </v-col>
+        </v-col>
+      </v-row>
       </v-col>
       <v-col cols="3">
-        <Donate />
+        <!--  -->
+        <Donate :id="forrestId" :name="forrest.name" :fundraised="forrest.fundraised"/>
       </v-col>
     </v-row>
     <v-container>
       
-      <v-divider style="margin-top: 3%"></v-divider>
-        
+      <v-divider></v-divider>
       
-      <v-row style="margin-top: 3%">
+      
+      <v-row v-if="isLoggedIn" style="margin-top: 3%">
         <v-col cols="5" align-self="end">
           <v-textarea
             solo
@@ -78,8 +77,11 @@
           
         </v-col>
       </v-row>
-      <v-container> 
-        <Comment />
+
+      <v-container v-if="discussion"> 
+        <div v-bind:v-for="(item, i) in discussion" :key="i">
+          <Comment v-if="item"  :content="item.comment"/>
+        </div>
       </v-container>
     </v-container>
     
@@ -88,6 +90,7 @@
 
 <script>
 import {LMap, LTileLayer, LPolygon} from 'vue2-leaflet';
+import { getForestDetail } from '../store';
 import Comment from './Comment';
 import Donate from './Donate';
 
@@ -98,6 +101,11 @@ export default {
     LPolygon,
     Comment,
     Donate
+  },
+  props: ["id"],
+  computed: {
+    getPlantation: () => this.forrest.plantation,
+    getWildlife: () => this.forrest.wildlife
   },
   data () {
     const getCenter = (latlngs) => {
@@ -120,6 +128,17 @@ export default {
      [47.237287, -1.6266632], [47.2263299, -1.6222]];
 
     return {
+      forrestId: "61e1639e0db95bb16ea21554",
+      forrest: {
+        name: "", 
+        description: "", 
+        wildlife: [], 
+        plantation: [], 
+        discussion: []},
+      plantation: [],
+      wildlife: [],
+      discussion: [],
+      isLoggedIn: "user" in localStorage,
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -132,158 +151,19 @@ export default {
     };
   },
 
+  async mounted() {
+    let response = await getForestDetail("61e1639e0db95bb16ea21554")
+    this.forrest = response.message.data
+    this.plantation = this.forrest.plantation
+    this.discussion = this.forrest.discussion
+    this.wildlife = this.forrest.wildlife
+    console.log(this.forrest)
+    console.log(this.wildlife)
+  }
+
   
 }
-// export default {
-//   data() {
-//     return {
-//       com: "",
-//       items: [
-//       { text: 'Found Raised', },
-//       { text: 'Deforestation Rate',},
-//       { text: 'Forest Coverage',},
-//       { text: 'Region', },
-//     ],
-//     };
-//   },
-//   methods: {
-//     addCom() {
-//       console.log("coment");
-//     },
-//   },
-// };
 </script>
 <style scoped>
-  :root {
-      --red: hsl(0, 78%, 62%);
-      --cyan: hsl(180, 62%, 55%);
-      --orange: hsl(34, 97%, 64%);
-      --blue: hsl(212, 86%, 64%);
-      --varyDarkBlue: hsl(234, 12%, 34%);
-      --grayishBlue: hsl(229, 6%, 66%);
-      --veryLightGray: hsl(0, 0%, 98%);
-      --weight1: 200;
-      --weight2: 400;
-      --weight3: 600;
-  }
 
-  body {
-      font-size: 15px;
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--veryLightGray);
-  }
-
-  .attribution { 
-      font-size: 11px; text-align: center; 
-  }
-
-  .attribution a { 
-      color: hsl(228, 45%, 44%); 
-  }
-
-  h1:first-of-type {
-      font-weight: var(--weight1);
-      color: var(--varyDarkBlue);
-
-  }
-
-  h1:last-of-type {
-      color: var(--varyDarkBlue);
-  }
-
-  @media (max-width: 400px) {
-      h1 {
-          font-size: 1.5rem;
-      }
-  }
-
-  .header {
-      text-align: center;
-      line-height: 0.8;
-      margin-bottom: 50px;
-      margin-top: 100px;
-  }
-
-  .header p {
-      margin: 0 auto;
-      line-height: 2;
-      color: var(--grayishBlue);
-  }
-
-
-  .box p {
-      color: var(--grayishBlue);
-  }
-
-  .box {
-      border-radius: 5px;
-      box-shadow: 0px 30px 40px -20px var(--grayishBlue);
-      padding: 30px;
-      margin: 20px;  
-  }
-
-  img {
-      float: right;
-  }
-
-  @media (max-width: 450px) {
-      .box {
-          height: 200px;
-      }
-  }
-
-  @media (max-width: 950px) and (min-width: 450px) {
-      .box {
-          text-align: center;
-          height: 180px;
-      }
-  }
-
-  .cyan {
-      border-top: 3px solid var(--cyan);
-  }
-
-  .red {
-      border-top: 3px solid var(--red);
-  }
-
-  .blue {
-      border-top: 3px solid var(--blue);
-  }
-  
-  .orange {
-      border-top: 3px solid var(--orange);
-  }
-
-  h2 {
-      color: var(--varyDarkBlue);
-      font-weight: var(--weight3);
-  }
-
-
-  @media (min-width: 950px) {
-      .row1-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-      
-      .row2-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }
-      .box-down {
-          position: relative;
-          top: 150px;
-      }
-      .box {
-          width: 20%;
-      
-      }
-      .header p {
-          width: 30%;
-      }
-      
-  }
 </style>

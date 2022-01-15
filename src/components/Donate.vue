@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card style="width: 45%">
+  <v-container style="width: 500px">
+    <v-card >
       <div
         id="give-form-442-wrap"
         class="give-form-wrap give-display-onpage snipcss-ThR5k"
@@ -13,7 +13,7 @@
           <div class="main-heading">
             <h3 class="tt-title font25">
               You are donating to :
-              <span> Nature Press Foundation </span>
+              <span> {{name}} </span>
             </h3>
           </div>
           <h4 class="tt-featured-title font15">
@@ -43,11 +43,12 @@
               <input
                 class="give-text-input give-amount-top"
                 id="give-amount"
+                ref="amount"
                 name="give-amount"
                 type="text"
                 inputmode="decimal"
                 placeholder=""
-                value="10"
+                :value="money"
                 autocomplete="off"
               />
             </div>
@@ -58,28 +59,31 @@
           >
             <li>
               <button
+                v-on:click="money='10'"
                 type="button"
                 data-price-id="0"
-                class="give-donation-level-btn give-btn give-btn-level-0 give-default-level"
+                class="give-donation-level-btn give-btn give-btn-level-0"
                 value="10"
-                data-default="1"
+                data-default="0"
               >
                 $10
               </button>
             </li>
             <li>
               <button
+                v-on:click="money='20'"
                 type="button"
                 data-price-id="1"
-                class="give-donation-level-btn give-btn give-btn-level-1"
+                class="give-donation-level-btn give-btn give-btn-level-1 "
                 value="20"
-                data-default="0"
+                data-default="1"
               >
                 $20
               </button>
             </li>
             <li>
               <button
+                v-on:click="money='30'"
                 type="button"
                 data-price-id="2"
                 class="give-donation-level-btn give-btn give-btn-level-2"
@@ -91,6 +95,7 @@
             </li>
             <li>
               <button
+                v-on:click="money='40'"
                 type="button"
                 data-price-id="3"
                 class="give-donation-level-btn give-btn give-btn-level-3"
@@ -102,6 +107,7 @@
             </li>
             <li>
               <button
+                v-on:click="money=''"
                 type="button"
                 data-price-id="custom"
                 class="give-donation-level-btn give-btn give-btn-level-custom"
@@ -117,18 +123,17 @@
               <p id="give-final-total-wrap" class="form-wrap">
                 <span class="give-donation-total-label"> Donation Total: </span>
                 <span class="give-final-total-amount" data-total="10">
-                  $10
+                  {{fundraised}}
                 </span>
               </p>
               <div class="give-submit-button-wrap give-clearfix">
-                <input
-                  type="submit"
+                <button
+                  @click="donateMoney"
                   class="give-submit give-btn"
                   id="give-purchase-button"
                   name="give-purchase"
-                  value="Donate Now"
                   data-before-validation-label="Donate Now"
-                />
+                >Donate Now</button>
                 <span class="give-loading-animation"> </span>
               </div>
             </fieldset>
@@ -138,6 +143,37 @@
     </v-card>
   </v-container>
 </template>
+
+<script>
+export default {
+    props: ["id", "name", "fundraised"],
+    data () {
+        return {
+            money: 0,
+            forrestId: this.id,
+            title: this.name,
+        }
+    },
+    methods: {
+        donateMoney() {
+            const payload = {
+              amount: this.money,
+              forestId: this.forrestId
+          }
+
+        let ret = this.donateMoney(payload)
+        if (ret) {
+            this.fundraised += payload.amount
+            this.money = 0
+            alert("Transaction Success")
+        } else {
+            alert("Transaction Failed")
+        }
+        }
+    }
+}
+</script>
+
 
 <style scoped>
 @keyframes spin {
