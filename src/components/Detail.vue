@@ -28,20 +28,19 @@
         </v-row>
         <v-row justify="center">
           <v-col cols="5">
-            <v-card v-if="forrest.plantation" style="padding: 25px">
+            <v-card v-if="forrest.plantation" style="padding: 25px; margin: 25px">
               <h2>Plantation</h2>
               <div v-for="(item, i) in forrest.plantation" :key="i">
-                <v-list>{{item}}</v-list>
-                <p v-if="item">{{ item.plant }}</p>
+                <h3 v-if="item">{{ item.plant }}</h3>
                   <p v-if="item">{{ item.description }}</p>
               </div>
             </v-card>
           </v-col>
           <v-col cols="5">
-            <v-card style="padding: 25px">
+            <v-card style="padding: 25px; margin: 25px">
               <h2>Wild Life</h2>
               <div v-for="(item, i) in forrest.wildlife" :key ="i">
-                <p v-if="item">{{ item.animal }}</p>
+                <h3 v-if="item">{{ item.animal }}</h3>
                 <p v-if="item">{{ item.description }}</p>
               </div>
             </v-card>

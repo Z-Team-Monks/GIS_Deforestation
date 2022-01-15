@@ -29,6 +29,7 @@ export async function searchAreas({ lat, lon, nearby, name, region }) {
     console.log("Search url: ", baseSearch);
     const response = await fetch(`http://localhost:4000/api/v1/areas/search?${baseSearch}`);
     console.log(response);
+    
     return await response.json();
   }
   export async function getRegions() {

@@ -1,26 +1,26 @@
 <template>
   <div>
     <div style="margin-top: 5%;550px !important">
-      <l-map style="height: 550px" :zoom="zoom" :center="center">
-<l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-<div v-if="index == -1">
+          <l-map style="height: 550px" :zoom="zoom" :center="center">
+    <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+    <div v-if="index == -1">
 
-    <l-marker v-for="(pt, index) in marker2" :key="index"  :lat-lng="pt"><l-icon
-          :icon-size="dynamicSize"
-          :icon-anchor="dynamicAnchor"
-          icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
-        /></l-marker>
-  
-</div>
-<div  v-else>
-  <l-marker :lat-lng="infor[index].location.coordinates"><l-icon
-          :icon-size="dynamicSize"
-          :icon-anchor="dynamicAnchor"
-          icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
-        /></l-marker>
-</div>
+        <l-marker v-for="(pt, index) in marker2" :key="index"  :lat-lng="pt"><l-icon
+              :icon-size="dynamicSize"
+              :icon-anchor="dynamicAnchor"
+              icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
+            /></l-marker>
+      
+    </div>
+    <div  v-else>
+      <l-marker :lat-lng="infor[index].location.coordinates"><l-icon
+              :icon-size="dynamicSize"
+              :icon-anchor="dynamicAnchor"
+              icon-url="https://www.freeiconspng.com/uploads/agricultural-sciences-icon-10.png"
+            /></l-marker>
+    </div>
 
-</l-map>
+    </l-map>
     </div>
     <!-- <v-img height="500px" :src="imageSet[index].image"
       ><h1
