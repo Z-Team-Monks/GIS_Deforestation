@@ -84,18 +84,21 @@
                   <v-row align="center">
                     <v-col cols="4"> </v-col>
                     <v-col cols="8">
-                      <router-link style="text-decoration: none" to="/detail">
-                        <v-btn
-                          style="
-                            font-weight: 900;
-                            background-color: green !important;
-                            color: white;
-                          "
-                          tile
-                        >
-                          Donate
-                        </v-btn>
-                      </router-link>
+                       <router-link
+                      style="text-decoration: none"
+                      :to="`/detail/${searchres._id}`"
+                    >
+                      <v-btn
+                        style="
+                          font-weight: 900;
+                          background-color: green !important;
+                          color: white;
+                        "
+                        tile
+                      >
+                        Show More
+                      </v-btn>
+                    </router-link>
                     </v-col>
                   </v-row>
                 </v-card-actions>
@@ -112,7 +115,7 @@
                       color="#43DB80"
                       thumb-color="#43DB80"
                       tick-labels=""
-                      :min="0"
+                      :min="2"
                       :max="1000"
                     ></v-slider>
                     <p style="font-size:15px;font-weight:600" class="mt-5">

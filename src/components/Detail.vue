@@ -209,6 +209,15 @@ export default {
     this.center = this.forrest.polygon.coordinates[0][2]
     console.log(this.forrest);
   },
+ async refreshAll() {
+     let response = await getForestDetail(this.forrestId);
+    this.forrest = response.message.data;
+    this.plantation = this.forrest.plantation;
+    this.discussion = this.forrest.discussions;
+    this.wildlife = this.forrest.wildlife;
+    this.center = this.forrest.polygon.coordinates[0][2]
+    console.log(this.forrest);
+  }
 };
 </script>
 <style scoped></style>

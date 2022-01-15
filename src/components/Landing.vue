@@ -131,18 +131,21 @@
             v-for="(info, index) in deforestation_stat"
             :key="index"
             class="mr-5"
+            style="margin: 1%"
           >
-            <v-card color="#385F73" dark style="margin: 1%" max-width="400">
-              <v-card-title class="text-h5">
+           <router-link style="text-decoration: none; cursor:pointer" :to="`/detail/${info._id}`"> 
+              <v-card width="300px" color="#385F73" dark style="margin: 2%;background-color:green;font-weight:900" max-width="400">
+              <v-card-title style="font-weight:900" class="text-h5">
                 {{ info.name }}
               </v-card-title>
 
-              <v-card-subtitle>{{ info.region }}</v-card-subtitle>
+              <v-card-subtitle style="font-weight:900">{{ info.region }}</v-card-subtitle>
 
               <v-card-actions>
-                <v-btn text> {{ info.fundraised }} ETB </v-btn>s
+                <v-btn text style="font-weight:900">  ${{ info.fundraised }} </v-btn>
               </v-card-actions>
             </v-card>
+           </router-link>
           </v-slide-item>
         </v-slide-group>
       </v-container>

@@ -40,6 +40,7 @@ export async function getRegions() {
 
 export async function logout() {
   localStorage.removeItem("user");
+  router.push({path: '/login'})
 }
 
 export async function createUser(data) {
@@ -76,8 +77,12 @@ export async function userlogin(data) {
   if (response.status == 200) {
     console.log(data);
     localStorage.setItem("user", `${JSON.stringify(de)}`);
-    router.push({ path: "/profile" });
+   
+    router.replace({ path: "/" });
+    // router.go()
+    window && window.location.reload()
     // return  response.json()
+
   } else {
     console.log(response);
   }

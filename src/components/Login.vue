@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="margin-top:10%">
-        <v-card  width="600" style="margin-bottom:10%; margin-left:15%">
+        <v-card  width="600" style="margin-bottom:10%; margin-left:20%">
           <v-card-title style="font-weight:600"> Login</v-card-title>
           <v-form @submit.prevent="" lazy-validation ref="form">
             <v-card-text>
@@ -81,8 +81,12 @@ export default {
               email: this.email,
               password: this.password
           }
-           userlogin(payload)
-          this.clearForm();
+          userlogin(payload)
+          // this.clearForm();
+          // if(log){
+          //    window && window.location.reload()
+          // }
+         
       },
       clearForm() {
           

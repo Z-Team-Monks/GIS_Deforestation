@@ -175,6 +175,10 @@ export default {
             this.success = false
         }
         this.show = true
+        if (ret) {
+        window && window.location.reload()
+          // this.$emit("refresh")
+      }
         }
     }
 }

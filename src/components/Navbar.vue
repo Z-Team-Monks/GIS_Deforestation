@@ -98,6 +98,7 @@ export default {
   methods: {
     userLogout() {
       logout();
+      window && window.location.reload()
     },
   },
   computed: {},
