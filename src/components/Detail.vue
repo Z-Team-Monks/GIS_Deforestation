@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-container style="margin-top: 3.5%">
+    <v-container style="margin-top: 5%">
       <l-map style="height: 450px" :zoom="zoom" :center="center">
         <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
         <l-polygon
-          :lat-lngs="polygon.latlngs"
+          :lat-lngs="forrest.polygon.coordinates[0]"
           :color="polygon.color"
         ></l-polygon>
       </l-map>
@@ -26,9 +26,26 @@
           <!--  -->
           <v-col cols="12">{{ forrest.description }} </v-col>
         </v-row>
+        <v-row>
+         <v-col cols="12">
+            <h2>
+              Status
+            </h2>
+         </v-col>
+          <v-col cols="3">Fund Raised <br> <span style="color: green; font-size:25px">${{forrest.fundraised}}</span></v-col>
+          <v-col cols="3">Deforestation Rate <br> <span style="color: green; font-size:25px">{{forrest.deforestationRate}} %</span></v-col>
+          <v-col cols="3">Forest Coverage <br> <span style="color: green; font-size:25px">{{forrest.forestCoverage}} %</span></v-col>
+          <v-col cols="3">Region <br> <span style="color: green; font-size:25px">{{forrest.region}}</span></v-col>
+        </v-row>
+        
         <v-row justify="center">
-          <v-col cols="5">
-            <v-card v-if="forrest.plantation" style="padding: 25px; margin: 25px">
+             <v-col cols="12">
+            <h2>
+              About
+            </h2>
+         </v-col>
+          <v-col cols="12">
+            <v-card v-if="forrest.plantation" style="padding: 25px; margin: 5px">
               <h2>Plantation</h2>
               <div v-for="(item, i) in forrest.plantation" :key="i">
                 <h3 v-if="item">{{ item.plant }}</h3>
@@ -36,8 +53,8 @@
               </div>
             </v-card>
           </v-col>
-          <v-col cols="5">
-            <v-card style="padding: 25px; margin: 25px">
+          <v-col cols="12">
+            <v-card style="padding: 25px; margin: 5px">
               <h2>Wild Life</h2>
               <div v-for="(item, i) in forrest.wildlife" :key ="i">
                 <h3 v-if="item">{{ item.animal }}</h3>
@@ -51,7 +68,7 @@
         <!--  -->
         <Donate
           :id="forrestId"
-          :name="forrest.name"
+          :name="forrest.name.toUpperCase()"
           :fundraised="forrest.fundraised"
         />
       </v-col>
@@ -159,7 +176,7 @@ export default {
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      zoom: 11,
+      zoom: 8,
       center: getCenter(latlngsList),
 
       polygon: {
@@ -189,7 +206,8 @@ export default {
     this.plantation = this.forrest.plantation;
     this.discussion = this.forrest.discussions;
     this.wildlife = this.forrest.wildlife;
-    console.log(this.discussion);
+    this.center = this.forrest.polygon.coordinates[0][2]
+    console.log(this.forrest);
   },
 };
 </script>
