@@ -2,7 +2,7 @@
   <div>
     <!-- footer  desktop -->
     <v-footer
-      style="border: 1px none; background-color: #50CB93;; z-index:2000;align-items:center !important"
+      style="border: 1px none; background-color: #6ab43e;; z-index:2000;align-items:center !important"
       class="white--text py-2 hidden-lg-and-up"
       height="120"
       
