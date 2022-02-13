@@ -138,6 +138,35 @@ export async function sendComment(data) {
 
   return false;
 }
+export async function addArea(data) {
+  console.log("area posted");
+  const response = await fetch(
+    `${baseurl}/areas`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("user")).token,
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  // let de = await response.json();
+  console.log("958rrrrrrr2rrrr8888888888888888888888888888888888");
+  console.log(response);
+  if (response.status == 201) {
+    console.log("958rrrrrrr2rrrr8888888888888888888888888888888888");
+    // localStorage.setItem("user", `${JSON.stringify(de)}`);
+   
+    router.replace({ path: "/" });
+    // router.go()
+    window && window.location.reload()
+    // return  response.json()
+  }
+
+  return false;
+}
 
 export async function fetchDeforestedAreas() {
   console.log("alkjfkdj a");

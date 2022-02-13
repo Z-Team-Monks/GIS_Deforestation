@@ -3,7 +3,7 @@
     <v-container fluid style="margin-top: 10%">
       <v-row>
         <v-col cols="8">
-          <h1 style="margin-left: 50%">Welcome Niko</h1>
+          <h1 style="margin-left: 50%">Welcome</h1>
         </v-col>
         <v-col cols="4">
          <router-link  style="text-decoration: none;" to="/addpost">
